@@ -139,8 +139,6 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", async (e) => {
-        e.preventDefault();
     function blockKey() {
     const key = document.getElementById('keyToBlock').value;
     if (!key) return alert("Masukkan key dulu!");
@@ -180,7 +178,6 @@
           alert("Terjadi kesalahan saat memfilter.");
         });
     }
-});
   </script>
 </body>
 </html>
