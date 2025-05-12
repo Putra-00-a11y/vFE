@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Pemesanan - Spam WA</title>
+  <style>
+    body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(#121212, #0d0d0d);
+  color: white;
+  overflow-x: hidden;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  background: #1a1a1a;
+  color: white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.form-group label {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  color: #888;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label,
+.form-group select:focus + label {
+  top: -10px;
+  left: 10px;
+  font-size: 13px;
+  color: #00e6b8;
+}
+
+.form-group.disabled input {
+  background-color: #333;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+button#submitBtn {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 5px;
+  background-color: #00e6b8;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button#submitBtn:hover {
+  background-color: #00bfa5;
+}
+
+button#submitBtnB {
+  width: 100%;
+  padding: 12px;
+  background-color: #00e6b8;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button#submitBtnB:hover {
+  background-color: #00bfa5;
+}
+
+.error-msg {
+  color: #ff5757;
+  font-size: 12px;
+  display: none;
+  margin-top: 4px;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #181818;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  animation: pop 0.3s ease;
+}
+
+.modal-content button {
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: #00e6b8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.harga-output {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #00e6b8;
+  font-weight: 500;
+}
+
+#noPemesanan {
+  font-size: 14px;
+  color: #00e6b8;
+  font-weight: 500;
+}
+
+#waktuRealTime {
+  font-size: 14px;
+  color: #00e6b8;
+  font-weight: 500;
+}
+
+p {
+  margin: 3px 0;
+  padding: 0;
+}
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Pemesanan Tool: Spam WA</h1>
+    <form id="pemesananForm">
+        <!-- Nama -->
+      <div class="form-group disabled">
+        <input type="text" id="username" readonly />
+        <label>Nama</label>
+      </div>
+
+        <!-- Gender -->
+        <div class="form-group disabled">
+          <input type="text" id="gender" readonly />
+          <label>Gender</label>
+        </div>
+      <!-- Target Nomor -->
+      <div class="form-group">
+        <input type="text" id="target" required />
+        <label for="target">Target Nomor WhatsApp</label>
+        <small class="error-msg" id="error-target"></small>
+      </div>
+
+      <!-- Nomor WhatsApp Aktif -->
+      <div class="form-group">
+        <input type="text" id="ownNumber" required />
+        <label for="ownNumber">Nomor WhatsApp Aktif Lu</label>
+        <small class="error-msg" id="error-ownNumber"></small>
+      </div>
+
+      <!-- Alasan Pemesanan -->
+      <div class="form-group">
+        <textarea id="reason" rows="3"></textarea>
+        <label for="reason">Alasan Pemesanan</label>
+      </div>
+
+      <!-- Tool Detail (Auto-filled) -->
+      <div class="form-group disabled">
+        <input type="text" value="Spam WA" id="toolName" readonly />
+        <label>Nama Tool</label>
+        <p>No Pemesanan: <span id="noPemesanan"></span></p>
+        <p>Waktu Saat Ini: <span id="waktuRealTime"></span></p>
+    </div>
+
+      <div class="form-group">
+        <select id="toolLevel">
+          <option value="Pilih" disabled selected>-Pilih-</option>
+          <option value="Basic">Basic - 250 spam</option>
+          <option value="Normal">Normal - 500 spam</option>
+          <option value="Brutal">Brutal - 1000 spam + Bonus 100 spam</option>
+        </select>
+        <div class="harga-output">
+            <span id="hargaDisplay">Harga: -</span>
+          </div>   
+      </div>   
+
+      <div class="form-group">
+        <select id="metode" name="metode">
+          <option value="Pilih" disabled selected>-Pilih-</option>
+          <option value="cepat">Cepat</option>
+          <option value="terencana">Terencana</option>
+          <option value="terjadwal">Terjadwal</option>
+        </select>
+
+        <div id="inputTerencana" style="display: none; margin-top: 10px;">
+          <input type="date" id="tanggalTerencana" name="tanggalTerencana">
+        </div>
+        
+        <div id="inputTerjadwal" style="display: none; margin-top: 10px;">
+          <input type="number" id="jam" name="jam" min="0" max="23" placeholder="0-23">
+          <input type="number" id="menit" name="menit" min="0" max="59" placeholder="0-59">
+          <input type="number" id="detik" name="detik" min="0" max="59" placeholder="0-59">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <select id="targetType">
+            <option value="Pilih" disabled selected>-Pilih-</option>
+          <option value="Seorang">Target seorang</option>
+          <option value="Kelompok">Target lebih dari seorang</option>
+        </select>
+      </div>
+
+      <!-- Catatan Tambahan -->
+      <div class="form-group">
+        <textarea id="notes" rows="2" placeholder="Tulis no target tambahan jika memilih opsi pilihan lebih dari 1 target/catatan tambahan"></textarea>
+      </div>
+
+      <div class="form-group">
+        <select id="metodePembayaran" required>
+          <option value="" disabled selected>-Pilih-</option>
+          <option value="Dana">Dana</option>
+          <option value="Qris">Qris</option>
+        </select>
+      </div>
+
+      <button type="submit" id="submitBtn">PESAN</button>
+      <button type="button" onclick="back()" id="submitBtnB">KEMBALI</button>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h2>Sukses!</h2>
+      <p>Data pemesanan telah disimpan.</p>
+      <button onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+      function closeModal() {
+      document.getElementById("successModal").style.display = "none";
+      setTimeout(() => {
+        window.location.href = "/dir_checks/check1.html";
+      }, 1500);
+    }
+
+    function back() {
+    console.info('Kembali ke laman awal..');
+    setTimeout(() => {
+      window.location.href = "/home.html";
+    }, 1000);
+  }
+
+    // Set default dari localStorage
+    document.getElementById('gender').value = localStorage.getItem("gender") || "Unknown";
+    document.getElementById('username').value = localStorage.getItem("username") || "Unknown";
+  
+    // Restore tanggal & waktu jika ada
+    document.getElementById("tanggalTerencana").value = localStorage.getItem("tanggalTerencana") || "";
+    document.getElementById("jam").value = localStorage.getItem("jamTerjadwal") || "";
+    document.getElementById("menit").value = localStorage.getItem("menitTerjadwal") || "";
+    document.getElementById("detik").value = localStorage.getItem("detikTerjadwal") || "";
+  
+    // Tampilkan kode pemesanan unik
+    function generateKodePemesanan(length = 15) {
+      const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let kode = "";
+      for (let i = 0; i < length; i++) {
+        kode += charset.charAt(Math.floor(Math.random() * charset.length));
+      }
+      return "VP - " + kode;
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("noPemesanan").textContent = generateKodePemesanan();
+    });
+  
+    // Update jam real-time
+    function updateWaktu() {
+      const now = new Date();
+      const jam = String(now.getHours()).padStart(2, '0');
+      const menit = String(now.getMinutes()).padStart(2, '0');
+      const detik = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById("waktuRealTime").textContent = `${jam}:${menit}:${detik}`;
+    }
+    setInterval(updateWaktu, 1000);
+    updateWaktu();
+  
+    // Harga otomatis berdasarkan level
+    const toolLevelSelect = document.getElementById("toolLevel");
+    const hargaDisplay = document.getElementById("hargaDisplay");
+  
+    const hargaMap = {
+      Basic: "Rp 5.000",
+      Normal: "Rp 10.000",
+      Brutal: "Rp 20.000"
+    };
+  
+    toolLevelSelect.addEventListener("change", function () {
+      const selected = this.value;
+      hargaDisplay.innerHTML = `<div class="harga-output">
+        <span id="hargaDisplay">Harga ${selected}: ${hargaMap[selected]}</span>
+      </div>`;
+    });
+  
+    // Tampilin input sesuai metode eksekusi
+    function updateFormMetode() {
+      const metode = document.getElementById("metode").value;
+      const inputTerencana = document.getElementById("inputTerencana");
+      const inputTerjadwal = document.getElementById("inputTerjadwal");
+  
+      localStorage.setItem("metodeEksekusi", metode);
+  
+      if (metode === "terencana") {
+        inputTerencana.style.display = "block";
+        inputTerjadwal.style.display = "none";
+      } else if (metode === "terjadwal") {
+        inputTerencana.style.display = "none";
+        inputTerjadwal.style.display = "block";
+      } else {
+        inputTerencana.style.display = "none";
+        inputTerjadwal.style.display = "none";
+      }
+    }
+  
+    // Event untuk update waktu input ke localStorage
+    document.getElementById("tanggalTerencana").addEventListener("change", function () {
+      localStorage.setItem("tanggalTerencana", this.value);
+    });
+    document.getElementById("jam").addEventListener("input", function () {
+      localStorage.setItem("jamTerjadwal", this.value);
+    });
+    document.getElementById("menit").addEventListener("input", function () {
+      localStorage.setItem("menitTerjadwal", this.value);
+    });
+    document.getElementById("detik").addEventListener("input", function () {
+      localStorage.setItem("detikTerjadwal", this.value);
+    });
+  
+    // Listener ubah metode eksekusi
+    document.getElementById("metode").addEventListener("change", updateFormMetode);
+    updateFormMetode(); // jalanin di awal
+  
+    // Submit form
+    const form = document.getElementById("pemesananForm");
+
+    // --------- //
+    form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+  const hargaMap = {
+    Basic: "Rp 5.000",
+    Normal: "Rp 10.000",
+    Brutal: "Rp 20.000"
+  };
+
+  const toolLevel = document.getElementById("toolLevel").value;
+  const hargaTool = hargaMap[toolLevel] || "Tidak diketahui";
+  const kodePemesanan = document.getElementById("noPemesanan").textContent;
+  const waktuSekarang = document.getElementById("waktuRealTime").textContent;
+
+  const data = {
+    username: localStorage.getItem("username") || "Anonymous",
+    target: document.getElementById("target").value.trim(),
+    ownNumber: document.getElementById("ownNumber").value.trim(),
+    gender: document.getElementById("gender").value,
+    reason: document.getElementById("reason").value.trim(),
+    toolName: document.getElementById("toolName").value,
+    toolLevel: toolLevel,
+    executionMethod: document.getElementById("metode").value,
+    tanggalTerencana: document.getElementById("tanggalTerencana").value,
+    jamTerjadwal: document.getElementById("jam").value,
+    menitTerjadwal: document.getElementById("menit").value,
+    detikTerjadwal: document.getElementById("detik").value,
+    targetType: document.getElementById("targetType").value,
+    notes: document.getElementById("notes").value.trim(),
+    waktuSubmit: new Date().toLocaleString(),
+    metodePembayaran: document.getElementById("metodePembayaran").value,
+    hargaTool: hargaTool,
+    noPemesanan: kodePemesanan,
+    waktuRealTime: waktuSekarang
+  };
+
+    // Simpan ke localStorage
+    localStorage.setItem("form1Data", JSON.stringify(data));
+
+    document.getElementById("submitBtn").style.display = "none";
+    document.getElementById("submitBtnB").style.display = "none";
+
+    // Tampilkan modal
+    document.getElementById("successModal").style.display = "flex";
+
+  try {
+    const res = await fetch("https://vbe-production.up.railway.app/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+    const result = await res.json();
+
+    if (result.message) {
+      // simpan noPemesanan ke localStorage buat QR
+      localStorage.setItem("kodePemesanan", result.kode);
+    } else {
+      alert("Gagal kirim data!");
+    }
+    } catch (err) {
+      alert("Terjadi kesalahan saat mengirim data.");
+      console.error(err);
+    }
+})
+  </script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

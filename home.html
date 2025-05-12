@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>V-Pendulum | Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+  <link rel="icon" type="image/png" href="https://media.istockphoto.com/id/1220585043/vector/spyware-internet-technology-stop-sign-web-icon-danger-symbol-concept-hacking-computer-vector.jpg?s=612x612&w=0&k=20&c=lj7FsLX26IUrLYpxwaeVhdbUELkh8GJEi2tKE9ezNfc=" />
+  <link rel="stylesheet" href="/home.css"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body class="dark-theme">
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h2>AKSES DITOLAK!</h2>
+      <img src="https://www.freeiconspng.com/thumbs/login-icon/login-key-icon-lock-locked-login-15.png" alt="denied" id="imgD">
+      <p>Login dulu biar bisa akses ini.</p>
+      <button onclick="closeModal()" id="btnPop">Tutup</button>
+    </div>
+  </div>
+
+  <audio id="bg-audio" autoplay loop>
+    <source src="audio_01.mp3" type="audio/mpeg" />
+    Browser lu gabisa muter audio.
+  </audio>
+
+  <div id="particles-js"></div> <!-- Partikel Background -->
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">V-Pendulum</div>
+    <button class="burger" id="burger-icon">[|||]</i></button>
+    <ul class="sub-nav" id="sub-nav">
+      <li><a href="#">Beranda</a></li>
+      <li><a href="/sejarah.html">Sejarah V-Pendulum</a></li>
+      <li class="nav-item dropdown-custom">
+        <a href="#" class="nav-link" id="nav-pemesanan" onclick="toggleDropdown(event)">Pemesanan</a>
+        <ul class="dropdown-menu-custom" id="pemesananDropdown">
+          <li><a href="/dir_tools/f01rm.html">Form Spam Wa</a></li>
+          <li><a href="#">Form Tool 2</a></li>
+          <li><a href="#">Form Tool 3</a></li>
+          <li><a href="#">Form Tool 4</a></li>
+          <li><a href="#">Form Tool 5</a></li>
+        </ul>
+      </li>      
+      <li><a href="/tools.html" id="nav-tools">Tools</a></li>
+      <li><a href="/feedbacks.html" id="nav-fb">Feedback</a></li>
+      <li><a href="/subscription.html" id="nav-subs">Subscription</a></li>
+      <li><a href="/tentang.html">Tentang Kami</a></li>
+      <li class="nav-item dropdown-custom">
+        <a href="#" class="nav-link" onclick="toggleDropdown1(event)">Akun</a>
+        <ul class="dropdown-menu-custom" id="pemesananDropdown1">
+          <li id="login"><a href="/index.html" id="login">Login</a></li>
+          <li id="logout"><a href="/index.html" id="logout">Logout</a></li>
+        </ul>
+      </li>  
+    </ul>
+  </nav>
+
+  <!-- Content -->
+  <main class="content">
+    <h1 class="welcome" id="welcome-text">Selamat datang, Pengunjung</h1>
+    <p class="desc">
+      Situs ini bukan untuk main-main. V-Pendulum adalah tempat gelap yang mengeksekusi setiap permintaan dengan presisi—tanpa ampun, tanpa jejak. Jika kamu berada di sini.. berarti kamu siap membalas dendam.
+    </p>
+
+    <!-- Dua kolom -->
+    <section class="info-section">
+      <div class="info-left">
+        <h2>Cara Pemesanan</h2>
+        <ol>
+          <li>Masuk ke akun V-Pendulum. Kalau belum punya, ya tinggal masuk.</li>
+          <li>Pilih jenis eksekusi yang lu mau. Jangan harap semua bisa diproses, cuma yang serius aja yang bisa.</li>
+          <li>Isi form dengan detail yang jelas. Semakin lengkap instruksi, semakin rapi eksekusinya. Jangan sampe salah kasih informasi.</li>
+          <li>Upload file atau script pendukung, kalau ada. Biar eksekusi makin sempurna, jangan harap bisa asal-asalan.</li>
+          <li>Konfirmasi dan bayar, karena balas dendam nggak bisa gratis. Pilih metode yang paling sesuai, tapi ingat, nggak ada refund (Terkecuali jika tools kami tidak bekerja semestinya).</li>
+          <li>Tim kami bakal verifikasi dan proses permintaan lu. Gak ada yang lu bisa lakukan kecuali nunggu, dan melihat hasil.</li>
+          <li>Akan ada notifikasi saat permintaan lu selesai diproses. Setelah itu, eksekusi berjalan.</li>
+        </ol>
+      </div>      
+      <div class="info-right">
+        <h2>Aturan & Ketentuan</h2>
+        <ul>
+          <li>Minimal umur 12 tahun, karena ini bukan main-main, dan kita nggak butuh korban bocah dan fomo.</li>
+          <li>Jangan pakai buat orang tak bersalah ya, kalau mau dihancurin dunia lu sendiri, terserah. Tapi kita nggak mau ikut campur.</li>
+          <li>Isi data dengan lengkap dan bener. Kalau enggak, ya siap-siap aja tool kita salah sasaran.</li>
+          <li>V-Pendulum bukan tempat untuk coba" gak jelas, kalau salah pakai, ya itu urusan lu, bukan kita.</li>
+          <li>Pembayaran udah masuk, berarti nggak bisa mundur. Balas dendam gak ada refund (Terkecuali jika tool-nya tidak bekerja semestinya).</li>
+          <li>Jangan sampe ketahuan kalau lu ngelanggar aturan, kita bakal kunci akses lu dengan sekejap.</li>
+          <li>Kami sangat menjamin privasi.. asalkan lu nggak keluarin data sendiri. Jangan salahkan kita kalau bocor, ya.</li>
+          <li>Jangan kebanyakan berharap, layanan bisa berhenti kapan aja, kita nggak peduli apa yang lu butuhkan.</li>
+          <li>Setiap langkah yang lu ambil, tanggung jawab lu sendiri. Jangan coba-coba ngelempar kesalahan ke kita.</li>
+          <li>Dengan pakai alat ini, berarti lu udah siap. Jangan nanti nyesel kalau udah ketagihan balas dendam.</li>
+        </ul>
+      </div>      
+    </section>
+    <section class="testimonial-section">
+      <h2>Jejak Mereka yang Pernah Menggunakan Pendulum...</h2>
+      <div class="testimonial">
+        <p>"Dulu gue cuma bisa diam... sekarang dia yang memohon. Thanks wkwk, V-Pendulum."</p>
+        <span>- royal aja</span>
+      </div>
+      <div class="testimonial">
+        <p>"Eksekusinya rapi. Sunyi, goodlah. Dia bahkan nggak sadar dari mana datangnya."</p>
+        <span>- li word</span>
+      </div>
+      <div class="testimonial">
+        <p>"Satu kata: puas. Satu kalimat: semoga dia kapok hmm.... semogaa :]"</p>
+        <span>- Tebak sapa KKk</span>
+      </div>
+      <section class="tools-section">
+        <div class="container">
+          <h2 class="section-title">Tools yang Tersedia</h2>
+      
+          <!-- Baris pertama: jalan ke kanan -->
+          <div class="tools-row scroll-right">
+            <div class="tool-item">Spam WA (OTP)</div>
+            <div class="tool-item">Spam WA (Chat)</div>
+            <div class="tool-item">Spam Telfon</div>
+            <div class="tool-item">Social.E (Akun)</div>
+            <div class="tool-item">Social.E (taut WA)</div>
+            <div class="tool-item">(Coming Soon)</div>
+            <div class="tool-item">Informasi IP</div>
+            <div class="tool-item">Informasi Lokasi</div>
+          </div>
+      
+          <!-- Baris kedua: jalan ke kiri -->
+          <div class="tools-row scroll-left">
+            <div class="tool-item">Username log-public</div>
+            <div class="tool-item">Username log-medsos</div>
+            <div class="tool-item">Virtex</div>
+            <div class="tool-item">OSINT (nomor)</div>
+            <div class="tool-item">PHP file loop</div>
+            <div class="tool-item">Phising (Info)</div>
+            <div class="tool-item">Phising (Akun+Pass)</div>
+          </div>
+        </div>
+      </section>    
+    </section>
+    <section class="security-section">
+      <div class="container">
+        <h2 class="security-title glitch-text">Security & Anonimitas</h2>
+        <p class="security-desc">
+          V-Pendulum memahami bahwa keadilan terkadang butuh dibukakan untuk bisa bergerak. Semua data diteliti dengan benar, setiap jejak disimpan, setiap perintah dijalankan dengan hati-hati.  
+          <br><br>
+          Lu bisa memesan “eksekusi” tanpa perlu takut identitas kebongkar. Sistem kita didesain untuk satu tujuan: 
+          <span class="focus">pesanlah 1 "eksekusi" dan masalah data kami yang melindungi.</span>  
+          <br><br>
+          Karena di dunia ini, ada satu hal lain yang lebih menakutkan dari hukuman...  
+          yaitu mereka yang gak tau siapa yang mengintai dan merusak mereka di balik layar.  
+          <br><br>
+          Kami adalah suara kalian dari para korban. So what else?.
+        </p>
+        <div class="smoke-overlay"></div>
+      </div>
+    </section>    
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-main">
+      <p>© 2025 V-Pendulum. All Rights Reserved.</p>
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Github"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank" title="Insragram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  
+    <div class="footer-extra">
+      <div class="footer-column">
+        <h4>Special Thanks</h4>
+        <ul>
+          <li>Sandhika Galih - Dosen Online</li>
+          <li>Bang Dea Afrizal - Mentor Online</li>
+          <li>OverTheWire - Situs White Hat</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Supporting Person</h4>
+        <ul>
+          <li>-</li>
+          <li>-</li>
+          <li>-</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Our Team</h4>
+        <ul>
+          <li>Putra (Founder / Developer)</li>
+          <li>Moses (Supporting System)</li>
+          <li>Lala (Supporting People)</li>
+        </ul>
+      </div>
+    </div>
+  </footer>  
+      <button id="toggle-audio">🔊</button>
+  <script src="/home.js"></script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

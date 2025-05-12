@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tools - V-Pendulum</title>
+  <link rel="stylesheet" href="/tools.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body class="dark-mode">
+  <nav class="navbar">
+    <div class="nav-left">V-Pendulum</div>
+    <div class="nav-right">
+      <a href="/home.html">Beranda</a>
+    </div>
+  </nav>
+
+  <header class="tools-header">
+    <h1>Daftar Tools V-Pendulum</h1>
+    <p>Senjata digital untuk membalikkan keadaan. Lihat dan Pesanlah.</p>
+  </header>
+
+  <div class="tools-filter">
+    <input type="text" id="searchInput" placeholder="Cari tools..." onkeyup="filterTools()">
+    
+    <select id="levelFilter" onchange="filterTools()">
+      <option value="">Semua Tingkat</option>
+      <option value="Rendah">Rendah</option>
+      <option value="Menengah">Menengah</option>
+      <option value="Tinggi">Tinggi</option>
+    </select>
+  </div>  
+  
+  <section class="tools-container">
+    <!-- Tool 1 -->
+    <div class="tool-card" data-level="Menengah">
+      <h2>1. Spam WA (OTP)</h2> 
+      <p><strong>Deskripsi:</strong> Mengirim chat berupa OTP secara terus - menerus.</p>
+      <p><strong>Tingkat:</strong> Menengah</p>
+      <p><strong>Efek ke Pelaku:</strong> Emosi target naik karena pancingan notifikasi WA.</p>
+      <p><strong>Harga:</strong> Basic (5K), Normal (10K), Brutal (25K) + Bonus</p>
+      <p><strong>Kelebihan:</strong> Dapat mengirim kode OTP secara acak.</p>
+      <p><strong>Kelemahan:</strong> Tidak efektif jika perangkat target memiliki keamanan lebih.</p>
+      <p><strong>Rating:</strong> 7.5/10</p>
+    </div>
+
+    <!-- Tool 2 -->
+    <div class="tool-card" data-level="Menengah">
+      <h2>2. Spam WA (Chat)</h2>
+      <p><strong>Deskripsi:</strong> Mengirim chat berupa teks secara terus - menerus ke target.</p>
+      <p><strong>Tingkat:</strong> Menengah</p>
+      <p><strong>Efek ke Pelaku:</strong> Emosi target naik karna pancingan notifikasi chat WA.</p>
+      <p><strong>Harga:</strong> Basic (7K), Normal (14K), Brutal (28K) + Bonus</p>
+      <p><strong>Kelebihan:</strong>  Perangkat WA target dibanjiri chat secara brutal (per milidetik).</p>
+      <p><strong>Kelemahan:</strong> Target bisa memblokir nomor eksekusi dan aman.</p>
+      <p><strong>Rating:</strong> 7/10</p>
+    </div>
+
+    <!-- Tool 3 -->
+    <div class="tool-card" data-level="Menengah">
+      <h2>3. Spam Telpon Acak</h2>
+      <p><strong>Deskripsi:</strong> Perangkat target akan dibanjiri nomor telpon acak / tak dikenal.</p>
+      <p><strong>Tingkat:</strong> Menengah</p>
+      <p><strong>Efek ke Pelaku:</strong> Emosi target naik dan terkadang perangkat mengalami lag.</p>
+      <p><strong>Harga:</strong> Basic (8K), Normal (16K), Brutal (30K) + Bonus</p>
+      <p><strong>Kelebihan:</strong> Aktivitas target pada perangkat akan terganggu.</p>
+      <p><strong>Kelemahan:</strong> Tidak efektif jika perangkat target memiliki keamanan lebih.</p>
+      <p><strong>Rating:</strong> 7.7/10</p>
+    </div>
+
+    <!-- Tool 4 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>4. PHP file loop</h2>
+      <p><strong>Deskripsi:</strong> Berikan file pada target, perangkat akan mengalami lag parah.</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Perangkat target memakan banyak penyimpanan dalam waktu hanya 5 detik + mental tinggi.</p>
+      <p><strong>Harga:</strong> Basic (17K), Normal (34K), Brutal (55K)</p>
+      <p><strong>Kelebihan:</strong> Memakan banyak memori dalam waktu singkat dan terkadang menyebabkan hang.</p>
+      <p><strong>Kelemahan:</strong> Hanya bisa dijalankan di dekstop (Membutuhkan XAMPP).</p>
+      <p><strong>Rating:</strong> 9.2/10</p>
+    </div>
+
+    <!-- Tool 5 -->
+    <div class="tool-card" data-level="Rendah">
+      <h2>5. Username cek-log-public</h2>
+      <p><strong>Deskripsi:</strong> Mencari nama target pada sebuah website ataupun situs.</p>
+      <p><strong>Tingkat:</strong> Rendah</p>
+      <p><strong>Efek ke Pelaku:</strong> Tidak ada efek pada target di-tool ini.</p>
+      <p><strong>Harga:</strong> Basic (3K), Normal (6K), Brutal (12K)</p>
+      <p><strong>Kelebihan:</strong> Mencari informasi seputar nama dari target.</p>
+      <p><strong>Kelemahan:</strong> Tool ini hanya mencari jejak digital dari si target.</p>
+      <p><strong>Rating:</strong> 2.8/10</p>
+    </div>
+
+    <!-- Tool 6 -->
+    <div class="tool-card" data-level="Rendah">
+      <h2>6. Username cek-medsos</h2>
+      <p><strong>Deskripsi:</strong> Mencari nama target pada banyak medsos sekaligus memiliki link.</p>
+      <p><strong>Tingkat:</strong> Rendah</p>
+      <p><strong>Efek ke Pelaku:</strong> Tidak ada efek pada target di-tool ini.</p>
+      <p><strong>Harga:</strong> Basic (3K), Normal (6K), Brutal (12K)</p>
+      <p><strong>Kelebihan:</strong> Mencari informasi seputar nama dari target.</p>
+      <p><strong>Kelemahan:</strong> Tool ini hanya mencari jejak digital dari si target.</p>
+      <p><strong>Rating:</strong> 3.3/10</p>
+    </div>
+
+    <!-- Tool 7 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>7. Virtex</h2>
+      <p><strong>Deskripsi:</strong> Merusak app target, umumnya app WA</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental sedang hingga tinggi + cemas.</p>
+      <p><strong>Harga:</strong> Basic (25K), Normal (45K), Brutal (60K)</p>
+      <p><strong>Kelebihan:</strong> Merusak app target dan terkadang performa dapat menurun.</p>
+      <p><strong>Kelemahan:</strong> Developer men-test script virtex dan mendapat dampaknya.</p>
+      <p><strong>Rating:</strong> 9.6/10</p>
+    </div>
+
+    <!-- Tool 8 -->
+    <div class="tool-card" data-level="Rendah">
+      <h2>8. OSINT (nomor)</h2>
+      <p><strong>Deskripsi:</strong> Mencari jejak digital di sebuah situs online menggunakan nomor target.</p>
+      <p><strong>Tingkat:</strong> Rendah</p>
+      <p><strong>Efek ke Pelaku:</strong> Tidak ada efek pada target di-tool ini. </p>
+      <p><strong>Harga:</strong> Basic (5K), Normal (10K), Brutal (25K)</p>
+      <p><strong>Kelebihan:</strong> Nomor dari target akan di-track untuk pencarian informasi target.</p>
+      <p><strong>Kelemahan:</strong> Tool ini hanya mencari jejak digital dari si target.</p>
+      <p><strong>Rating:</strong> 3.4/10</p>
+    </div>
+
+    <!-- Tool 9 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>9. Social Engineering (Akun)</h2>
+      <p><strong>Deskripsi:</strong> Mendapatkan akun target melalui teknik manipulasi dan percakapan / chat.</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental sangat tinggi + cemas.</p>
+      <p><strong>Harga:</strong> Basic (-), Normal (-), Brutal (300K)</p>
+      <p><strong>Kelebihan:</strong> Akun dapat anda modifikasi, cek data maupun anda rusak.</p>
+      <p><strong>Kelemahan:</strong> Teknik manipulasi sering kali mengalami kegagalan.</p>
+      <p><strong>Rating:</strong> 9.8/10</p>
+    </div>
+
+    <!-- Tool 10 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>10. Social Engineering (bertaut WA)</h2>
+      <p><strong>Deskripsi:</strong> Menautkan perangkat korban dengan target untuk merusak komunikasi target.</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental tinggi + cemas.</p>
+      <p><strong>Harga:</strong> Basic (-), Normal (60k), Brutal (-)</p>
+      <p><strong>Kelebihan:</strong> Setelah bertaut korban bisa mengacak - acak isi dalam WA.</p>
+      <p><strong>Kelemahan:</strong> Teknik manipulasi sering kali mengalami kegagalan.</p>
+      <p><strong>Rating:</strong> 8.6/10</p>
+    </div>
+
+    <!-- Tool 11 -->
+    <div class="tool-card" data-level="Rendah">
+      <h2>11. Informasi IP</h2>
+      <p><strong>Deskripsi:</strong> Mencari informasi IP dari perangkat target.</p>
+      <p><strong>Tingkat:</strong> Rendah</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental ringan, tidak terlalu berpengaruh.</p>
+      <p><strong>Harga:</strong> Basic (12k), Normal (24k), Brutal (-)</p>
+      <p><strong>Kelebihan:</strong> Mengungkap informasi seputar dari IP target.</p>
+      <p><strong>Kelemahan:</strong> Terkadang IP target yang didapat tidak sesuai / melenceng.</p>
+      <p><strong>Rating:</strong> 6.5/10</p>
+    </div>
+
+    <!-- Tool 12 -->
+    <div class="tool-card" data-level="Menengah">
+      <h2>12. Informasi Lokasi</h2>
+      <p><strong>Deskripsi:</strong> Mencari lokasi tempat tinggal target.</p>
+      <p><strong>Tingkat:</strong> Menengah</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental sedang + cemas.</p>
+      <p><strong>Harga:</strong> Basic (13k), Normal (26k), Brutal (-)</p>
+      <p><strong>Kelebihan:</strong> Mengungkap lokasi target melalui peta google / Gmaps.</p>
+      <p><strong>Kelemahan:</strong> Terkadang lokasi target yang diungkap tidak tepat / melenceng.</p>
+      <p><strong>Rating:</strong> 7.4/10</p>
+    </div>
+
+    <!-- Tool 13 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>13. Phising (Informasi target)</h2>
+      <p><strong>Deskripsi:</strong> Mengumpulkan seputar informasi dan keseharian dari target.</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental sedang hingga tinggi + cemas.</p>
+      <p><strong>Harga:</strong> Basic (12k), Normal (24k), Brutal (40k)</p>
+      <p><strong>Kelebihan:</strong> Korban dapat memanfaatkan hal untuk suatu kebutuhan.</p>
+      <p><strong>Kelemahan:</strong> Terkadang manipulasi gagal / informasi target acak - acakan.</p>
+      <p><strong>Rating:</strong> 7.8/10</p>
+    </div>
+
+    <!-- Tool 14 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>14. Phising (Akun + Pass)</h2>
+      <p><strong>Deskripsi:</strong> Mendapatkan akun target dengan cara memberikan link palsu.</p>
+      <p><strong>Tingkat:</strong> Tinggi</p>
+      <p><strong>Efek ke Pelaku:</strong> Mental sangat tinggi + cemas.</p>
+      <p><strong>Harga:</strong> Basic (-), Normal (150k), Brutal (300k)</p>
+      <p><strong>Kelebihan:</strong> Mendapatkan Akun dari target dengan modal link.</p>
+      <p><strong>Kelemahan:</strong> Teknik manipulasi sering kali mengalami kegagalan.</p>
+      <p><strong>Rating:</strong> 9.4/10</p>
+    </div>
+
+    <!-- Tool 15 -->
+    <div class="tool-card" data-level="Tinggi">
+      <h2>15. COMING SOON</h2>
+      <p><strong>Deskripsi:</strong> -</p>
+      <p><strong>Tingkat:</strong> -</p>
+      <p><strong>Efek ke Pelaku:</strong> -</p>
+      <p><strong>Harga:</strong> -</p>
+      <p><strong>Kelebihan:</strong> -</p>
+      <p><strong>Kelemahan:</strong> -</p>
+      <p><strong>Rating:</strong> -</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 V-Pendulum. All Rights Reserved.</p>
+  </footer>
+  <script src="/tools.js"></script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

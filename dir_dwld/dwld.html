@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download Pemesanan</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #dataBox {
+      text-align: left;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .json-btn { background-color: #2196F3; }
+    .img-btn { background-color: #4CAF50; }
+    video {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+
+    h3 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #qr {
+        background-repeat: no-repeat;
+        background-size: cover;
+        image-rendering: optimizeQuality;
+        margin: 5px 0 0 0;
+        padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h3>QR-Code data pemesanan client</h3>
+  <div id="qr"></div>
+  <label for="qr">*QR diatas hanya bisa di-scan oleh admin</label>
+
+  <h2>Data Pemesanan</h2>
+
+  <form id="dataBox">
+    <!-- Isi data akan dimasukkan lewat JS -->
+  </form>
+
+  <button class="btn json-btn" onclick="downloadJSON()">Download JSON</button>
+  <button class="btn img-btn" onclick="downloadAsImage()">Download Gambar</button>
+
+  <video controls>
+    <source src="tutorial.mp4" type="video/mp4" />
+    Browser tidak mendukung video.
+  </video>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  const data = JSON.parse(localStorage.getItem("form1Data") || "{}");
+
+  // Render ke dalam dataBox
+  const box = document.getElementById("dataBox");
+  let html = '';
+  for (const key in data) {
+    html += `<p><strong>${key.replace(/([A-Z])/g, ' $1')}:</strong> ${data[key]}</p>`;
+  }
+  box.innerHTML = html;
+
+  // Fungsi download JSON
+  function downloadJSON() {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data_pemesanan.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Fungsi download sebagai gambar (isi data aja)
+  function downloadAsImage() {
+    html2canvas(document.getElementById("dataBox")).then(canvas => {
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "data_pemesanan.png";
+      a.click();
+    });
+  }
+</script>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script>
+    const kode = localStorage.getItem("kodePemesanan") || "VP-000000";
+    const url = `https://vbe-production.up.railway.app/qr/${kode}`;
+
+    QRCode.toDataURL(url, function (err, url) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = "QR Code";
+      document.getElementById("qr").appendChild(img);
+    });
+</script>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

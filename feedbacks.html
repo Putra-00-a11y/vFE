@@ -1,0 +1,167 @@
+<!-- feedbacks.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedbacks - V-Pendulum</title>
+  <style>
+  body {
+    background-color: #343;
+    color: #eee;
+    font-family: 'Courier New', monospace;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .feedback-container {
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+p { 
+    padding: 0;
+    margin: 0;
+}
+
+.navbar {
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #333;
+    opacity: 85%;
+  }
+  
+  .nav-left {
+    font-size: 1.4em;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .nav-right a {
+    text-decoration: none;
+    color: #eee;
+    padding: 8px 14px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+
+  .nav-right a:hover {
+    background-color: #333;
+  }
+
+input, textarea {
+  display: block;
+  width: 90%;
+  margin: 10px 0;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+button {
+  width: 25%;
+  padding: 0.7rem 1.5rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+#feedback-list {
+  width: 90%;
+  margin-top: 1rem;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.footer {
+    background: #1c1c1c;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 15px;
+    border-top: 2px solid #333;
+    text-align: center;
+    z-index: 1;
+  }
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">V-Pendulum</div>
+        <div class="nav-right">
+          <a href="/home.html">Beranda</a>
+        </div>
+      </nav>
+
+  <section class="feedback-container">
+    <h2>Beri Kami Feedback :]</h2>
+    <p>Setelah mencoba tools kami, bantu kami berkembang dengan memberi feedback. Feedback dari kalian
+        sangat berarti bagi kami untuk pengembangan situs ini lebih lanjut. *Masukanmu akan terlihat oleh semua pengguna lainnya</p>
+    
+    <input type="text" id="username" placeholder="Username (auto)" readonly>
+    <textarea id="feedback" rows="5" placeholder="Tulis feedback kamu di sini..."></textarea>
+    <button onclick="submitFeedback()">Kirim</button>
+    
+    <hr>
+    <h3>Feedback dari Pengguna:</h3>
+    <div id="feedback-list"></div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 V-Pendulum. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async (e) => {
+        e.preventDefault();
+  const username = localStorage.getItem("username") || "Anonymous";
+  document.getElementById("username").value = username;
+
+  fetch("https://vbe-production.up.railway.app/feedbacks")
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("feedback-list");
+      data.reverse().forEach(fb => {
+        const div = document.createElement("div");
+        div.innerHTML = `<b>${fb.username}:</b><br>${fb.feedback}<hr>`;
+        list.appendChild(div);
+      });
+    });
+});
+
+function submitFeedback() {
+  const username = document.getElementById("username").value;
+  const feedback = document.getElementById("feedback").value.trim();
+
+  if (!feedback) return alert("Feedback tidak boleh kosong!");
+
+  fetch("https://vbe-production.up.railway.app/feedbacks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, feedback })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Feedback berhasil dikirim!");
+    location.reload();
+  });
+}
+  </script>
+</body>
+</html>

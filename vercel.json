@@ -1,0 +1,22 @@
+{
+    "rewrites": [
+      { "source": "/", "destination": "/home.html" },
+      { "source": "/login", "destination": "/index.html" },
+      { "source": "/home", "destination": "/home.html" },
+      { "source": "/admin", "destination": "/admin.html" },
+      { "source": "/dashboard", "destination": "/dashboard.html" },
+      { "source": "/sejarah", "destination": "/sejarah.html" },
+      { "source": "/tools", "destination": "/tools.html" },
+      { "source": "/tentang", "destination": "/tentang.html" },
+      { "source": "/feedback", "destination": "/feedbacks.html"},
+      { "source": "/ketentuan", "destination": "/ketentuan.html" },
+      { "source": "/kebijakan", "destination": "/kebijakan.html" },
+      { "source": "/subscription", "destination": "/subscription.html" },
+      { "source": "/systems", "destination": "/dir_manage/manage_system.html" },
+      { "source": "/public_data_log", "destination": "/dir_manage/manage_public.html" },
+      { "source": "/f0rm", "destination": "/dir_tools/f01rm.html" },
+      { "source": "/check_0", "destination": "/dir_checks/check1.html" },
+      { "source": "/download_0", "destination": "/dir_dwld/dwld.html" },
+      { "source": "/public_data_tool0", "destination": "/dir_manage_tools/tool1.html" }
+    ]
+}

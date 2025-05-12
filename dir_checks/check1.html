@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cek Data Pemesanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    .kertas {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .btn-group {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .btn-kembali {
+      background: #ccc;
+      color: #333;
+    }
+    .btn-lanjut {
+      background: #28a745;
+      color: white;
+    }
+    .btn:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="kertas">
+    <h2>Detail Pemesanan Anda</h2>
+    <div id="outputData">
+      <!-- Data dari localStorage akan ditampilkan di sini -->
+    </div>
+    <div class="warning">
+      ⚠️ Mohon periksa kembali semua data pemesanan sebelum melanjutkan!
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-kembali" onclick="location.href='/dir_tools/f01rm.html'">🔙 Kembali</button>
+      <button class="btn btn-lanjut" onclick="check1()">✅ Lanjut</button>
+    </div>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("form1Data")) || {};
+
+    const output = `
+      <p><strong>Nomor Pemesanan:</strong> ${data.noPemesanan || '-'}</p>
+      <p><strong>Username:</strong> ${data.username || '-'}</p>
+      <p><strong>Gender:</strong> ${data.gender || '-'}</p>
+      <p><strong>Nomor Anda:</strong> ${data.ownNumber || '-'}</p>
+      <p><strong>Target Nomor:</strong> ${data.target || '-'}</p>
+      <p><strong>Alasan Pemesanan:</strong> ${data.reason || '-'}</p>
+      <p><strong>Nama Tool:</strong> ${data.toolName || '-'}</p>
+      <p><strong>Tingkat Tool:</strong> ${data.toolLevel || '-'}</p>
+      <p><strong>Harga Tool:</strong> ${data.hargaTool || '-'}</p>
+      <p><strong>Metode Eksekusi:</strong> ${data.executionMethod || '-'}</p>
+      ${data.executionMethod === 'terencana' ? `<p><strong>Tanggal Eksekusi:</strong> ${data.tanggalTerencana || '-'}</p>` : ''}
+      ${data.executionMethod === 'terjadwal' ? `
+        <p><strong>Jam:</strong> ${data.jamTerjadwal || '0'} : ${data.menitTerjadwal || '0'} : ${data.detikTerjadwal || '0'}</p>` : ''}
+      <p><strong>Tipe Target:</strong> ${data.targetType || '-'}</p>
+      <p><strong>Catatan Tambahan:</strong> ${data.notes || '-'}</p>
+      <p><strong>Metode Pembayaran:</strong> ${data.metodePembayaran || '-'}</p>
+      <p><strong>Waktu Submit:</strong> ${data.waktuSubmit || '-'}</p>
+      <p><strong>Waktu Real Time (Submit):</strong> ${data.waktuRealTime || '-'}</p>
+    `;
+
+    document.getElementById("outputData").innerHTML = output;
+
+    function check1() {
+      const warn = confirm("Data sudah benar?");
+      if(warn === true) {
+        console.info('Data Benar..');
+        setTimeout(() =>{
+            window.location.href = "/dir_dwld/dwld.html";
+        }, 2100);
+      }
+      else {
+        console.info('Data Cek..');
+      }
+    }
+  </script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

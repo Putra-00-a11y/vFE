@@ -1,0 +1,289 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body.dark-theme {
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  /* Container Form */
+  .container {
+    background: #161616;
+    padding: 20px 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 100, 0.3), 0 0 40px rgba(0, 200, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 100px;
+    position: absolute;
+    z-index: 1;
+    animation-name: cont-out;
+    animation-timing-function: linear;
+    animation-direction: normal;
+    animation-delay: 200ms;
+    animation-duration: .7s;
+    scale: 1;
+    opacity: 100%;
+    transform: translateX(0px);
+  }
+
+  @keyframes cont-out {
+    from {
+      scale: .7;
+      opacity: 0%;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: #3498db;
+    font-style: italic;
+  }
+
+  a:hover {
+    color: #00ccff;
+  }
+
+  a:active {
+    color: blueviolet;
+  }
+  
+  /* Header Title Animation */
+  h1.fade-in {
+    animation: fadeIn 1s ease-in-out forwards;
+    font-size: 2.5rem;
+    color: #ff0066;
+    margin-bottom: 10px;
+  }
+  
+  p.tagline {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  /* Animation Keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Form Styles */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 100%;
+    animation-name: loginV;
+    animation-timing-function: linear;
+    animation-duration: .5s;
+    animation-direction: normal;
+    animation-delay: 200ms;
+  }
+
+  @keyframes loginV {
+    from {
+        gap: 0px;
+        scale: .9;
+        opacity: 0%;
+    }
+
+    to {
+        gap: 10px;
+        scale: 1;
+        opacity: 100%;
+    }
+  }
+  
+  .form-group {
+    text-align: left;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    transition: 0.3s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus {
+    border-color: #ff0066;
+    outline: none;
+    background: #1c1c1c;
+  }
+  
+  /* Checkbox and Radio */
+  .checkbox-group label,
+  .radio-group label {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  .radio-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 8px;
+  }
+  
+  .radio-options label {
+    cursor: pointer;
+  }
+  
+  .captcha-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #00ccff;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .btn {
+    background: linear-gradient(135deg, #ff0066, #00ccff);
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    font-size: 1rem;
+    outline: none;
+    
+  }
+  
+  .btn:hover {
+    background: linear-gradient(135deg, #00ccff, #ff0066);
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px #ff0066, 0 0 15px #00ccff;
+  }
+
+  .btn:active {
+    scale: .9;
+  }
+  
+/* Animasi Loading CAPTCHA */
+#captcha-question.loading {
+    animation: pulse 1s infinite; /* Contoh animasi */
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+  
+  /* Styling Warning */
+  .warning {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease, visibility 0s 2s;
+  }
+  
+  .warning.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    animation-name: shake;
+    animation-duration: 0.5s;
+  }
+  
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background: #1c1c1c;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 15px;
+    border-top: 2px solid #333;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .footer-content p {
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+  
+  .footer-content a {
+    color: #00ccff;
+    text-decoration: none;
+  }
+  
+  .footer-content a:hover {
+    color: #ff0066;
+    text-decoration: underline;
+  }
+  
+  .social-icons a {
+    color: #ccc;
+    margin: 0 10px;
+    font-size: 1.5rem;
+  }
+  
+  .social-icons a:hover {
+    color: #ff0066;
+  }
+  
+  .social-icons .fa {
+    transition: 0.3s;
+  }
+  
+  /* Spinner loading */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
+  
+  /* Animasi putar spinner */
+  @keyframes spin {
+    0% { transform: rotate(0deg); scale: .7; opacity: 30%;}
+    50% { transform: rotate(180deg); scale: 1; opacity: 100%;}
+    100% { transform: rotate(360deg); scale: .7; opacity: 30%;}
+  }
+
+  /* © 2025 Putra - Unauthorized use is strictly prohibited. */

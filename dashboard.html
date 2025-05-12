@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - V-Tools</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+      color: #f5f5f5;
+    }
+
+      /* Navbar */
+  .navbar {
+    background: #1c1c1c;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    position: sticky; top: 0;
+    z-index: 100;
+    opacity: 80%;
+  }
+  
+  .nav-left {
+    position: relative;
+    padding-left: 35px; /* kasih jarak biar ada ruang buat ikon */
+    font-size: 1.5em;
+    left: -1%;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    filter: drop-shadow(0 0 5px
+    crimson);
+    color: crimson;
+  }
+  
+  .nav-left::before {
+    content: '';
+    position: absolute;
+    left: -1%;
+    top: 42%;
+    transform: translateY(-50%);
+    background-image: url('https://media.istockphoto.com/id/1220585043/vector/spyware-internet-technology-stop-sign-web-icon-danger-symbol-concept-hacking-computer-vector.jpg?s=612x612&w=0&k=20&c=lj7FsLX26IUrLYpxwaeVhdbUELkh8GJEi2tKE9ezNfc=');
+    background-size: cover;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    filter: drop-shadow(0 0 2px darkred);
+    outline: none;
+    border: none;
+    opacity: 85;
+  }
+  
+  /* Burger */
+  .burger {
+    background: none; border: none;
+    color: #eee; font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    margin-left: auto;
+    transition: transform 0.3s;
+  }
+  
+  .burger:hover {
+    transform: rotate(90deg);
+  }
+  
+  /* Sub-nav */
+  .sub-nav {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin-left: auto;
+    transition: opacity 0.5s;
+  }
+  
+  .sub-nav li a {
+    text-decoration: none; color: #ccc;
+    padding: 0.5rem 0;
+    transition: color 0.3s, border-bottom 0.3s;
+  }
+  
+  .sub-nav li a:hover {
+    color: crimson;
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .burger { display: block; }
+    .sub-nav {
+      position: absolute; top: 100%;
+      right: 2rem; background: #222;
+      flex-direction: column; padding: 1rem;
+      display: none;
+    }
+    .sub-nav.active {
+      display: flex;
+    }
+  }
+  
+  /* Content */
+  .content {
+    padding: 4rem 2rem 8rem;
+    text-align: center;
+  }
+  
+  .welcome {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .desc {
+    font-size: 1.1rem; color: #bbb;
+    max-width: 700px; margin: 0 auto 2rem;
+    line-height: 1.6;
+    animation: fadeIn 2s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+    /* Content */
+    .welcome-box {
+      padding: 60px 30px;
+      text-align: center;
+    }
+
+    .welcome-box h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .welcome-box p {
+      font-size: 16px;
+      color: #aaa;
+    }
+
+    /* Tambahin ke CSS */
+footer {
+  background-color: #111;
+  color: #888;
+  padding: 20px 30px;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+footer .left {
+  font-style: italic;
+}
+
+footer .right {
+  text-align: right;
+  font-size: 13px;
+  color: #666;
+}
+
+.admin-description {
+  background-color: #0d0d0d;
+  padding: 50px 60px;
+  color: #ccc;
+  text-align: left;
+  line-height: 1.8;
+}
+
+.admin-description h2 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 26px;
+  border-bottom: 2px solid crimson;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+th {
+    color: crimson;
+    text-align: center;
+}
+
+td {
+    padding: 5px;
+}
+
+.dropdown-custom {
+    position: relative;
+  }
+  
+  .dropdown-menu-custom {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    padding: 10px;
+    list-style: none;
+    border: 1px solid #555;
+    z-index: 999;
+  }
+  
+  .dropdown-menu-custom li {
+    margin: 5px 0;
+  }
+  
+  .dropdown-menu-custom a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s;
+  }
+  
+  .dropdown-menu-custom a:hover {
+    color: #0ff;
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">V-Pendulum</div>
+    <button class="burger" id="burger-icon">[|||]</i></button>
+    <ul class="sub-nav" id="sub-nav">
+      <li><a href="#">Beranda</a></li>
+      <li class="nav-item dropdown-custom">
+        <a href="#" class="nav-link" id="nav-pemesanan" onclick="toggleDropdown(event)">Manajemen</a>
+        <ul class="dropdown-menu-custom" id="pemesananDropdown">
+          <li><a href="#" id="nav-pemesanan" onclick="toggleDropdown1(event)">Manajemen Data-log Pesanan</a>
+            <ul class="dropdown-menu-custom" id="pemesananDropdown1">
+              <li><a href="/dir_manage_tools/tool1.html">Data-log Spam WA (OTP)</a></li>
+              <li><a href="#">Data-log</a></li>
+              <li><a href="#">Data-log</a></li>
+              <li><a href="#">Data-log</a></li>
+              <li><a href="#">Data-log</a></li>
+            </ul>
+          </li>
+          <li><a href="/dir_manage/manage_public.html">Manajemen Data-log Public</a>
+          <li><a href="/dir_tools/f01rm.html">Manajemen Data-log Victim</a></li>
+          <li><a href="/dir_tools/f01rm.html">Manajemen Pemeliharan Situs</a></li>
+          <li><a href="/dir_tools/f01rm.html">Manajemen Transaksi</a></li>
+          <li><a href="/dir_manage/manage_system.html">Manajemen Sistem</a></li>
+        </ul>    
+      </li>
+      <li><a href="/admin.html">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Content -->
+  <div class="welcome-box">
+    <h2>Selamat datang, <span id="adminName">Admin</span></h2>
+    <p>Anda masuk sebagai pengelola sistem V-Tools. Silakan pilih menu di atas untuk mulai mengatur data atau memonitor aktivitas.</p>
+  </div>
+
+  <section class="admin-description">
+    <h2>Selamat Datang di V-Tools Admin Panel</h2>
+    <p>
+      Di balik layar V-Pendulum, panel ini menjadi pusat kendali seluruh alat eksekusi digital yang dirancang untuk memberi efek jera terhadap pelaku kekerasan, bullying, dan tekanan sosial lainnya. Melalui sistem ini, admin memiliki akses penuh untuk memonitor permintaan, mengatur metode eksekusi, hingga mengamankan data user. Semua aktivitas akan dicatat dalam log internal yang tak bisa dimanipulasi. Dashboard ini adalah simbol kekuatan balik—tempat suara-suara yang dulu dibungkam kini mendapatkan ruang dan balasannya. Pastikan setiap tindakanmu terkontrol, karena setiap klik menyimpan konsekuensi.
+    </p> 
+  </section>
+
+  <footer>
+    <div class="left">
+      &copy; 2025 V-Pendulum. Dunia takkan diam saat kau disakiti.
+    </div>
+    <div class="right">
+      <div>Admin Panel - V-Tools</div>
+      <div>Monitoring • Eksekusi • Pengendalian</div>
+    </div>
+  </footer>  
+
+  <script> 
+    document.addEventListener("DOMContentLoaded", async (e) => {
+      e.preventDefault();
+  fetch("https://vtoolsbe-production-6085.up.railway.app/device-info")
+    .then(res => {
+      if (!res.ok) throw new Error("Gagal ambil data device-info.");
+      return res.json();
+    })
+    .then(data => {
+      const tableBody = document.getElementById("device-info-table");
+      tableBody.innerHTML = ""; // clear isi lama
+
+        data.forEach(device => {
+        const row = document.createElement("tr");
+
+        const us = document.createElement("td");
+        us.textContent = localStorage.getItem("username") || "-"
+
+        const timeCell = document.createElement("td");
+        timeCell.textContent = device.timestamp || "-";
+
+        const uaCell = document.createElement("td");
+        uaCell.textContent = device.userAgent || "-";
+
+        const ipCell = document.createElement("td");
+        ipCell.textContent = device.ip || "-";
+
+        row.appendChild(us);
+        row.appendChild(timeCell);
+        row.appendChild(uaCell);
+        row.appendChild(ipCell);
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(err => {
+      console.error("Error ambil device info:", err);
+    });
+});
+
+  // Ambil nama admin dari localStorage
+  const adminName = localStorage.getItem('adminUsername') || 'Admin';
+    document.getElementById('adminName').textContent = adminName;
+
+     // toggle mobile menu (hanya untuk mobile)
+    const burger = document.getElementById("burger-icon");
+    const nav = document.getElementById("sub-nav");
+  
+    if (burger) {
+      burger.addEventListener("click", () => {
+        nav.classList.toggle("active");
+      });
+    }
+
+  function toggleDropdown(event) {
+    event.preventDefault();
+    const menu = document.getElementById('pemesananDropdown');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+  }
+
+  function toggleDropdown1(event) {
+    event.preventDefault();
+    const menu = document.getElementById('pemesananDropdown1');
+    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+  }
+  </script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

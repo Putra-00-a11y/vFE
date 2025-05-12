@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Langganan Paket – V-Pendulum</title>
+  <style>
+    body {
+      background-color: #0c0c0c;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      padding: 0;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #ff5252;
+    }
+    .navbar {
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #333;
+    opacity: 85%;
+  }
+  
+  .nav-left {
+    font-size: 1.4em;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .nav-right a {
+    text-decoration: none;
+    color: #eee;
+    padding: 8px 14px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  
+  .nav-right a:hover {
+    background-color: #333;
+  }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .card {
+      background-color: #1b1b1b;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(255, 82, 82, 0.1);
+    }
+    .card h2 {
+      color: #40c4ff;
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+    }
+    .card ul {
+      font-size: 0.9rem;
+      padding-left: 1.2rem;
+    }
+    .subscribe-btn {
+      margin-top: 1rem;
+      background-color: #ff5252;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+    }
+    .disabled {
+      background-color: #333;
+      cursor: default;
+    }
+    /* Footer */
+  .footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #0a0a0a;
+    color: #888;
+    font-size: 0.9em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">V-Pendulum</div>
+        <div class="nav-right">
+          <a href="/home.html">Beranda</a>
+        </div>
+      </nav>
+  <h1>Pilih Paket Langganan Anda</h1>
+  <div class="container">
+    <!-- Basic -->
+    <div class="card">
+      <h2>Basic (Gratis)</h2>
+      <p>Akses standar untuk mencoba fitur dasar V-Tools. Cocok untuk eksplorasi awal.</p>
+      <ul>
+        <li>✅ Akses tools basic</li>
+        <li>❌ Tidak ada diskon</li>
+        <li>❌ Tidak bisa akses fitur admin</li>
+        <li>Kunci: <code>BSC-419Z</code></li>
+      </ul>
+      <button class="subscribe-btn disabled" disabled>Terdaftar</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="card">
+      <h2>Pro</h2>
+      <p>Paket terbaik buat pengguna aktif. Dapat diskon khusus dan akses premium ke tools lanjutan.</p>
+      <ul>
+        <li>✅ Diskon 30% semua tools</li>
+        <li>✅ Akses metode Terencana & Terjadwal</li>
+        <li>✅ Dapat feedback prioritas</li>
+        <li>✅ Bisa kirim notifikasi publik</li>
+        <li>Kunci: <code>PRO-VTP9</code></li>
+      </ul>
+      <button class="subscribe-btn" onclick="subscribe('pro', 'PRO-VTP9')">Pilih Pro</button>
+    </div>
+
+    <!-- Apex -->
+    <div class="card">
+      <h2>Apex</h2>
+      <p>Paket tertinggi untuk eksekutor elite. Penuh akses, support langsung, dan semua fitur terbuka.</p>
+      <ul>
+        <li>✅ Diskon 50% semua tools</li>
+        <li>✅ Akses seluruh metode + fitur admin terbatas</li>
+        <li>✅ Bisa lihat statistik publik</li>
+        <li>✅ Priority access ke dashboard tools</li>
+        <li>Kunci: <code>APX-7X1K</code></li>
+      </ul>
+      <button class="subscribe-btn" onclick="subscribe('apex', 'APX-7X1K')">Pilih Apex</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 V-Pendulum. All Rights Reserved.</p>
+  </footer>
+
+<script>
+  function subscribe(tier, key) {
+    localStorage.setItem('subscriptionTier', tier);
+    localStorage.setItem('subscriptionKey', key);
+
+    // Fetch to BE buat nyimpen key
+    fetch('https://vbe-production.up.railway.app/api/keys', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key })
+    })
+    .then(res => res.json())
+    .then(() => {
+      alert(`Langganan berhasil!\nTier: ${tier.toUpperCase()}\nKey: ${key}`);
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Gagal simpan ke backend.");
+    });
+  }
+</script>
+</body>
+</html>

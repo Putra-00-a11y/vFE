@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manajemen Device Public | V-tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #ddd;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #00ffee;
+    }
+
+    .nav-manajemen {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .nav-title {
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    }
+
+    .btn-balik {
+    padding: 8px 16px;
+    background-color: #3d3d3d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-balik:hover {
+    background-color: #555;
+    transform: scale(1.05);
+    }
+    .desc {
+      max-width: 800px;
+      margin: 10px auto 30px;
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+    .filter-section, .delete-section {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #1c1c1c;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    input[type="text"], button {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      font-family: Verdana;
+    }
+    button {
+      background: #ff0040;
+      color: white;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: #222;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #555;
+      text-align: center;
+    }
+    th {
+      background: #333;
+      color: #00ffee;
+    }
+  </style>
+</head>
+<body>
+    <nav class="nav-manajemen">
+        <div class="nav-title">Manajemen</div>
+        <button class="btn-balik" onclick="window.location.href='/dashboard.html'">⬅ Balik ke Dashboard</button>
+      </nav>      
+
+  <h1>Manajemen Device Public</h1>
+  <div class="desc">
+    Halaman ini memungkinkan admin untuk memantau dan mengelola semua data publik yang dikirimkan oleh pengguna.
+    Data yang tercatat mencakup identitas pengguna, informasi perangkat, alamat IP, serta waktu akses.
+    Kamu bisa menyaring data berdasarkan kriteria tertentu, dan menghapus seluruh log publik jika diperlukan.
+    Pastikan hanya admin terpercaya yang menggunakan fitur ini.
+  </div>
+
+  <div class="filter-section">
+    <h3>Filter Data</h3>
+    <input type="text" id="filter-username" placeholder="Filter Username" />
+    <input type="text" id="filter-ip" placeholder="Filter IP" />
+    <input type="text" id="filter-device" placeholder="Filter Device / User-Agent" />
+    <button onclick="applyFilters()">Terapkan Filter</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Timestamp</th>
+        <th>Log Device Public</th>
+        <th>IP</th>
+      </tr>
+    </thead>
+    <tbody id="device-info-table">
+      <!-- data akan di-render di sini -->
+    </tbody>
+  </table>
+
+  <div class="delete-section">
+    <h3>Hapus Semua Log Publik</h3>
+    <input type="text" id="delete-confirm" placeholder='Ketik: delete all public-log'/>
+    <button onclick="deleteAll()">Hapus Semua Data</button>
+  </div>
+
+  <script>
+    let dataDevice = [];
+  
+    document.addEventListener("DOMContentLoaded", async (e) => {
+      e.preventDefault();
+      try {
+        const res = await fetch("https://vbe-production.up.railway.app/device-info");
+        if (!res.ok) throw new Error("Gagal ambil data device-info.");
+        const data = await res.json();
+  
+        // Normalize dan simpan data
+        dataDevice = data.map(d => ({
+          username: d.username || "-",
+          timestamp: d.timestamp || "-",
+          device: d.device || d.userAgent || "-",
+          ip: d.ip || "-"
+        }));
+  
+        renderTable(dataDevice);
+      } catch (err) {
+        console.error("Error ambil device info:", err);
+      }
+    });
+  
+    function renderTable(data) {
+      const table = document.getElementById("device-info-table");
+      table.innerHTML = "";
+      data.forEach(d => {
+        table.innerHTML += `
+          <tr>
+            <td>${d.username}</td>
+            <td>${d.timestamp}</td>
+            <td>${d.device}</td>
+            <td>${d.ip}</td>
+          </tr>
+        `;
+      });
+    }
+  
+    function applyFilters() {
+      const user = document.getElementById("filter-username").value.trim().toLowerCase();
+      const ip = document.getElementById("filter-ip").value.trim();
+      const dev = document.getElementById("filter-device").value.trim().toLowerCase();
+  
+      const filtered = dataDevice.filter(d =>
+        d.username.toLowerCase().includes(user) &&
+        d.ip.includes(ip) &&
+        d.device.toLowerCase().includes(dev)
+      );
+  
+      renderTable(filtered);
+    }
+  
+    function deleteAll() {
+      const confirmVal = document.getElementById("delete-confirm").value;
+      if (confirmVal !== "delete all public-log") {
+        alert("Konfirmasi salah, ketik persis: delete all public-log");
+        return;
+      }
+  
+      fetch("https://vbe-production.up.railway.app//device-info", {
+        method: "delete"
+      })
+      .then(res => res.json())
+      .then(res => {
+        alert(res.message || "Data berhasil dihapus");
+        location.reload();
+      });
+    }
+  </script>  
+</body>
+</html>

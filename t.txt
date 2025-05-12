@@ -1,0 +1,120 @@
+Copyright (c) 2025 Putra
+
+All rights reserved.
+
+This software is proprietary and confidential. 
+Unauthorized copying, distribution, modification, or use of any part of this project is strictly prohibited without explicit permission from the author.
+
+Contact the author at [email address or other contact] for licensing inquiries.
+
+-----
+
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/home", "destination": "/home.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/tools", "destination": "/tools.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/form1", "destination": "/dir_tools/form1.html" },
+    { "source": "/check1", "destination": "/dir_checks/check1.html" },
+    { "source": "/sejarah", "destination": "/sejarah.html" },
+    { "source": "/tentang", "destination": "/tentang.html" }
+  ]
+}
+
+-----
+
+const PORT = process.env.PORT || 3000; (hosting ke-2 BE > Replit)
+
+-----
+
+UptimeRobot (anti sleep hosting > Replit)
+
+-----
+
+https://lazysvg.vercel.app/ (icon versi vercel)
+
+-----
+
+// Endpoint DELETE: hapus semua device-info
+app.delete("/device-info", (req, res) => {
+  fs.writeFile(deviceInfoPath, JSON.stringify([], null, 2), (err) => {
+    if (err) return res.status(500).json({ error: "Gagal hapus semua data." });
+    res.json({ message: "Semua data device public berhasil dihapus." });
+  });
+});
+
+-----
+
+const fs = require("fs");
+const path = require("path");
+
+app.use(express.json());
+
+app.get("/feedbacks", (req, res) => {
+  const data = fs.readFileSync(path.join(__dirname, "feedback.json"));
+  res.json(JSON.parse(data));
+});
+
+app.post("/feedbacks", (req, res) => {
+  const data = JSON.parse(fs.readFileSync(path.join(__dirname, "feedback.json")));
+  data.push({
+    username: req.body.username,
+    feedback: req.body.feedback,
+    timestamp: new Date().toISOString()
+  });
+  fs.writeFileSync(path.join(__dirname, "feedback.json"), JSON.stringify(data, null, 2));
+  res.json({ message: "Feedback berhasil disimpan!" });
+});
+
+-----
+
+app.post("/feedbacks/delete-and-replace", (req, res) => {
+  const newData = req.body;
+  fs.writeFileSync(path.join(__dirname, "feedback.json"), JSON.stringify(newData, null, 2));
+  res.json({ message: "Feedback berhasil difilter & dihapus!" });
+});
+
+-----
+
+subsKeys.json
+
+-----
+
+app.use(express.json());
+const keysPath = './data/subsKeys.json';
+
+// POST key dari FE
+app.post('/api/keys', (req, res) => {
+  const { key } = req.body;
+  if (!key) return res.status(400).json({ error: 'Key required' });
+
+  let data = [];
+  if (fs.existsSync(keysPath)) {
+    data = JSON.parse(fs.readFileSync(keysPath));
+  }
+
+  if (!data.includes(key)) {
+    data.push(key);
+    fs.writeFileSync(keysPath, JSON.stringify(data, null, 2));
+  }
+
+  res.status(200).json({ message: 'Key saved' });
+});
+
+// DELETE key (blokir)
+app.post('/api/block', (req, res) => {
+  const { key } = req.body;
+  if (!key) return res.status(400).json({ error: 'Key required' });
+
+  if (!fs.existsSync(keysPath)) return res.status(404).json({ error: 'Key list not found' });
+
+  let data = JSON.parse(fs.readFileSync(keysPath));
+  data = data.filter(k => k !== key);
+  fs.writeFileSync(keysPath, JSON.stringify(data, null, 2));
+
+  res.status(200).json({ message: 'Key blocked' });
+});
+
+-----

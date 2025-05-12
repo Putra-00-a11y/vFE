@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filter Feedbacks – V-Pendulum</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .nav-manajemen {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .nav-title {
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    }
+
+    .btn-balik {
+    padding: 8px 16px;
+    background-color: #3d3d3d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-balik:hover {
+    background-color: #555;
+    transform: scale(1.05);
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 25px auto;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff3b3b;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background-color: #2e2e2e;
+      color: white;
+      outline: none;
+    }
+
+    #btnD {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #ff3b3b;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #btnD:hover {
+      background-color: #ff1f1f;
+    }
+
+    #btnB {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #ff3b3b;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #btnB:hover {
+      background-color: #ff1f1f;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <nav class="nav-manajemen">
+        <div class="nav-title">Manajemen</div>
+        <button class="btn-balik" onclick="window.location.href='/dashboard.html'">⬅ Balik ke Dashboard</button>
+    </nav>  
+
+  <div class="container">
+    <h2>Filter Feedback Kasar</h2>
+    <p style="text-align: justify; margin-top: 10px; line-height: 1.6; color: #ddd;">
+    Dalam dunia yang penuh ekspresi bebas, tak sedikit kata-kata yang melukai. Fitur ini dibuat untuk menjaga ruang publik tetap bersih dari ucapan kasar, hinaan, maupun komentar tidak pantas yang bisa mengganggu kenyamanan pengguna lain. Dengan mengetikkan satu kata kunci, sistem akan mencari dan menghapus seluruh feedback yang mengandung kata tersebut dari database.
+    <br><br>
+    Gunakan fitur ini dengan bijak. Jangan biarkan ruang ini tercemar oleh kata-kata yang tak layak dibaca publik. V-Pendulum percaya pada kekuatan ekspresi, tapi juga menjunjung tanggung jawab.
+  </p>
+
+    <input type="text" id="filterKeyword" placeholder="Masukkan kata yang dianggap kasar">
+    <button onclick="hapusFeedbackKasar()" id="btnD">Hapus Feedback Mengandung Kata Ini</button>
+    <p class="note">Semua feedback yang mengandung kata ini akan dihapus dari database permanen!</p>
+  </div>
+
+  <div class="container">
+    <h2>Blokir Akses (Key Langganan)</h2>
+<input type="text" id="keyToBlock" placeholder="Masukkan key publik...">
+<button onclick="blockKey()" id="btnB">Blokir Akses</button>
+<p class="note">Blokir akses situs public tertentu jika mereka melanggar aturan dan ketentuan!</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async (e) => {
+        e.preventDefault();
+    function blockKey() {
+    const key = document.getElementById('keyToBlock').value;
+    if (!key) return alert("Masukkan key dulu!");
+
+    fetch('https://vbe-production.up.railway.app/api/block', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("Key diblokir!");
+    });
+  }
+
+    function hapusFeedbackKasar() {
+      const keyword = document.getElementById("filterKeyword").value.toLowerCase().trim();
+      if (!keyword) return alert("Masukkan kata kasar yang mau difilter!");
+
+      fetch("https://vbe-production.up.railway.app/feedbacks")
+        .then(res => res.json())
+        .then(data => {
+          const filtered = data.filter(fb => !fb.feedback.toLowerCase().includes(keyword));
+          return fetch("https://vbe-production.up.railway.app/feedbacks/delete-and-replace", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(filtered)
+          });
+        })
+        .then(res => res.json())
+        .then(result => {
+          alert("Feedback berhasil difilter & dihapus.");
+          location.reload();
+        })
+        .catch(err => {
+          console.error("Gagal:", err);
+          alert("Terjadi kesalahan saat memfilter.");
+        });
+    }
+});
+  </script>
+</body>
+</html>

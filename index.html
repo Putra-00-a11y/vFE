@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V-Pendulum | Login</title>
+  <link rel="icon" type="image/png" href="https://media.istockphoto.com/id/1220585043/vector/spyware-internet-technology-stop-sign-web-icon-danger-symbol-concept-hacking-computer-vector.jpg?s=612x612&w=0&k=20&c=lj7FsLX26IUrLYpxwaeVhdbUELkh8GJEi2tKE9ezNfc=" />
+  <link rel="stylesheet" href="/style.css">
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Cek apakah username udah ada di localStorage
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+
+    if (username && password === "pendulum") {
+      // Udah login, langsung redirect
+      window.location.href = "/home.html";
+    }
+  });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome Icon -->
+</head>
+<body class="dark-theme">
+  <div class="container" id="container-v">
+    <h1 class="fade-in">V-Pendulum</h1>
+    <p class="tagline typewriter">Jadilah Korban Pemberani!</p>
+
+    <form id="login-form" class="login-form">
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username (5-7 chars)" maxlength="7" minlength="5" required>
+      </div>
+
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password (pendulum)" required>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label><input type="checkbox" id="age" required> Saya berusia di atas 12 tahun</label>
+      </div>
+
+      <div class="form-group radio-group">
+        <label>Gender:</label>
+        <div class="radio-options">
+          <label><input type="radio" name="gender" value="cowo" required> Cowo</label>
+          <label><input type="radio" name="gender" value="cewe" required> Cewe</label>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label><input type="checkbox" id="terms" required> Saya setuju dengan <a href="/ketentuan.html">Ketentuan</a> & <a href="/kebijakan.html">Kebijakan</a></label>
+      </div>
+
+      <div class="form-group captcha-group">
+        <label id="captcha-question">Loading captcha...</label>
+        <input type="text" id="captcha-answer" placeholder="Jawaban?" required>
+    </div>    
+
+      <button type="submit" class="btn" id="btn-0"
+      >LOGIN</button>
+      <button type="button" class="btn" id="btn-1" onclick="btnadmin()">AKSES ADMIN</button>
+
+      <div id="warning-message" class="warning hidden">
+        ⚠️ Login gagal! Cek lagi inputannya.
+      </div>
+    </form>
+  </div>
+
+  <!-- Spinner loading saat redirect -->
+<div id="loading-spinner" class="spinner" style="display: none;"></div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2025 V-Pendulum. All Rights Reserved.</p>
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Github"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <p><a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->

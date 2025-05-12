@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - V-Tools</title>
+    <style>
+        /* Fullscreen background */
+        body {
+            background: linear-gradient(135deg, #333, #111);
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 15px;
+        }
+
+        /* Center the container */
+        .container {
+        background: rgba(0, 0, 0, 1) url('https://images5.alphacoders.com/423/thumb-1920-423529.jpg') no-repeat center center;
+        background-size: cover;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        max-width: 400px;
+        width: 100%;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+            animation-delay: 0.5s;
+            color: crimson;
+            filter: drop-shadow(0 0 3px crimson);
+
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-label {
+            margin-bottom: 8px;
+            font-family: sans-serif;
+        }
+
+        .form-control {
+            width: 93%;
+            padding: 12px;
+            background-color: #444;
+            border: 1px solid #555;
+            color: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+            transform: scale(1.02);
+        }
+
+        .form-control:hover {
+            border-color: #0d6efd;
+            transform: scale(1.02);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            padding: 12px;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 3px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0a58ca;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .alert-danger {
+            color: #ff4d4d;
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 576px) {
+            .container {
+                width: 90%;
+            }
+        }
+
+        #label0 {
+            opacity: 70%;
+            font-size: .9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" minlength="5" maxlength="7" required>
+                <div class="alert alert-danger" id="usernameError">Username is required</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+                <div class="alert alert-danger" id="passwordError">Password is required</div>
+            </div>
+            <div class="mb-3">
+                <label for="adminCode" class="form-label">Admin Code</label>
+                <input type="text" class="form-control" id="adminCode" required>
+                <div class="alert alert-danger" id="adminCodeError">Admin Code is required</div>
+            </div>
+            <div class="mb-3">
+                <label for="captcha" class="form-label">Captcha (Enter 'VTools')</label>
+                <input type="text" class="form-control" id="captcha" required>
+                <div class="alert alert-danger" id="captchaError">Captcha is incorrect or required</div>
+            </div>
+            <button type="submit" class="btn-primary" id="button0">Login</button>
+            <button type="button" class="btn-primary" id="button1" onclick="back()">back</button>
+            <label for="button0" id="label0">*Login Khusus <strong>Admin/Dev</strong></label>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear previous error messages
+            document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+
+            // Validation
+            let valid = true;
+
+            if (!document.getElementById('username').value) {
+                document.getElementById('usernameError').style.display = 'block';
+                valid = false;
+            }
+
+            if (!document.getElementById('password').value) {
+                document.getElementById('passwordError').style.display = 'block';
+                valid = false;
+            }
+
+            if (!document.getElementById('adminCode').value) {
+                document.getElementById('adminCodeError').style.display = 'block';
+                valid = false;
+            }
+
+            if (document.getElementById('captcha').value !== 'VTools') {
+                document.getElementById('captchaError').style.display = 'block';
+                valid = false;
+            }
+
+            if (valid) {
+                const name = document.getElementById('username').value;
+                 // Simpan ke localStorage
+                localStorage.setItem('adminUsername', document.getElementById('username').value);
+                localStorage.setItem('adminPassword', document.getElementById('password').value);
+                localStorage.setItem('adminCode', document.getElementById('adminCode').value);
+                setTimeout(() => {
+                    alert(`Berhasil!, Halo admin ${name}`);
+                    document.getElementById('button0').style.display = "none";
+                    setTimeout(() => {
+                        // Redirect to dashboard or admin page here
+                        window.location.href = "/dashboard.html"; // Ganti dengan halaman dashboard admin
+                    }, 2200);
+                }, 1800);
+            }
+        });
+
+        function back() {
+            document.getElementById("button1").style.display = "none";
+            setTimeout(() => {
+                window.location.href = "/index.html";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
+
+<!-- © 2025 Putra - Unauthorized use is strictly prohibited. -->
